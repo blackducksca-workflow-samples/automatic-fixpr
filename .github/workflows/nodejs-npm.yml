@@ -11,15 +11,15 @@ jobs:
     steps:
     - uses: actions/checkout@v4
                                                                                                                                                                                                                                           
-    - name: Use Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '18'
+    # - name: Use Node.js
+    #   uses: actions/setup-node@v3
+    #   with:
+    #     node-version: '18'
                                                                                                                                                                                                                                           
-    - name: Install dependencies
-      run: |
-        cd nodejs-npm
-        npm install
+    # - name: Install dependencies
+    #   run: |
+    #     cd nodejs-npm
+    #     npm install
                                                                                                                                                                                                                                           
     - name: Black Duck Scan and FixPR
       uses: blackduck-inc/black-duck-security-scan@v2
@@ -27,6 +27,10 @@ jobs:
         blackducksca_url: ${{ secrets.BLACKDUCK_URL }}
         blackducksca_token: ${{ secrets.BLACKDUCK_TOKEN }}
         blackducksca_fixpr_enabled: true
+        blackducksca_fixpr_maxCount : 2
+        blackducksca_fixpr_filter_severities: 'Critical, High'
+        blackducksca_fixpr_useUpgradeGuidance: 'SHORT_TERM,LONG_TERM'
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        detect_args: "--detect.source.path=${{ github.workspace }}/nodejs-npm"
       env:
         DETECT_PROJECT_NAME: ${{ github.event.repository.name }}
