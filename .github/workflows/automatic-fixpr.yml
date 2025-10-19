@@ -1,0 +1,34 @@
+name: Black Duck SCA Automatic FixPR
+
+on:
+  push:
+    branches: [ main, master, develop, stage, release ]
+
+jobs:
+  blackduck-fixpr:
+    runs-on: [mac-arm-sh]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Black Duck Scan and FixPR
+      uses: blackduck-inc/black-duck-security-scan@v2
+      with:
+        blackducksca_url: ${{ secrets.BLACKDUCK_URL }}
+        blackducksca_token: ${{ secrets.BLACKDUCK_TOKEN }}
+        blackducksca_fixpr_enabled: true
+        blackducksca_fixpr_maxCount: 2
+        blackducksca_fixpr_filter_severities: 'Critical, High'
+        blackducksca_fixpr_useUpgradeGuidance: 'SHORT_TERM,LONG_TERM'
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      env:
+        DETECT_PROJECT_NAME: ${{ github.event.repository.name }}
