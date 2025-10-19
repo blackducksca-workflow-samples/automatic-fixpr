@@ -16,6 +16,17 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Navigate to Node.js Project
+      run: |
+        echo "Current directory: $(pwd)"
+        echo "Repository contents:"
+        ls -la
+        echo "Navigating to nodejs-npm directory..."
+        cd nodejs-npm
+        echo "Now in: $(pwd)"
+        echo "Project contents:"
+        ls -la
+
     - name: Black Duck Scan and FixPR
       uses: blackduck-inc/black-duck-security-scan@v2
       with:
