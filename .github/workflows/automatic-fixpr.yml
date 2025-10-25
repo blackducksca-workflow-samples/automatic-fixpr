@@ -3,23 +3,32 @@ name: Black Duck SCA Automatic FixPR
 on:
   push:
     branches: [ main, master, develop, stage, release ]
-    paths:
-        - 'nodejs-npm/**'              
-
+    
 jobs:
   blackduck-fixpr:
     runs-on: [mac-arm-sh]
 
+    defaults:
+      run:
+        working-directory: ${{ github.workspace }}/nodejs-npm
+
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout Source
+      uses: actions/checkout@v4
 
-    # - name: Setup Node.js
-    #   uses: actions/setup-node@v4
-    #   with:
-    #     node-version: '18'
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'  # Specify Node version
+        cache: 'npm'
+        cache-dependency-path: nodejs-npm/package-lock.json
 
-    # - name: Install Dependencies
-    #   run: npm install
+    - name: Install dependencies
+      run: npm install  # Use npm ci for faster, reliable installs
+
+    - name: Build Project
+      run: |
+        npm rebuild
 
     - name: Black Duck Scan and FixPR
       uses: blackduck-inc/black-duck-security-scan@v2
