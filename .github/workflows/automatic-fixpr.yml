@@ -41,6 +41,7 @@ jobs:
         blackducksca_fixpr_useUpgradeGuidance: 'SHORT_TERM,LONG_TERM'
         detect_args: "--detect.source.path=${{ github.workspace }}/nodejs-npm"
         github_token: ${{ secrets.GITHUB_TOKEN }}
+        
 
       env:
         DETECT_PROJECT_NAME: ${{ github.event.repository.name }}
