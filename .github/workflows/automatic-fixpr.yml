@@ -22,7 +22,7 @@ jobs:
         node-version: '18'  # Specify Node version
     
     - name: Install dependencies
-      run: npm install  # Use npm ci for faster, reliable installs
+      run: npm install  
 
     - name: Build Project
       run: |
@@ -42,4 +42,4 @@ jobs:
         
       env:
         DETECT_PROJECT_NAME: ${{ github.event.repository.name }}
-        
+      
