@@ -3,6 +3,12 @@ name: Black Duck SCA Scan with automatic FixPR
 on:
   push:
     branches: [ main, master, develop, stage, release ]
+
+permissions:
+  contents: read
+  actions: read
+  security-events: write
+  pull-requests: write
     
 jobs:
   blackduck-fixpr:
