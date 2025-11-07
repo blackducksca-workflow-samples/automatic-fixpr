@@ -4,11 +4,11 @@ on:
   push:
     branches: [ main, master, develop, stage, release ]
 
-permissions:
-  contents: write
-  actions: write
-  security-events: write
-  pull-requests: write
+# permissions:
+#   contents: write
+#   actions: write
+#   security-events: write
+#   pull-requests: write
     
 jobs:
   blackduck-fixpr:
