@@ -1,4 +1,4 @@
-name: Black Duck SCA Automatic FixPR
+name: Black Duck SCA Scan with automatic FixPR
 
 on:
   push:
@@ -28,7 +28,7 @@ jobs:
       run: |
         npm rebuild
 
-    - name: Black Duck Scan and FixPR
+    - name: Black Duck SCA Scan with automatic FixPR
       uses: blackduck-inc/black-duck-security-scan@v2
       with:
         blackducksca_url: ${{ secrets.BLACKDUCK_URL }}
