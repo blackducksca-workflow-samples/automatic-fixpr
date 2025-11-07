@@ -5,8 +5,8 @@ on:
     branches: [ main, master, develop, stage, release ]
 
 permissions:
-  contents: read
-  actions: read
+  contents: write
+  actions: write
   security-events: write
   pull-requests: write
     
